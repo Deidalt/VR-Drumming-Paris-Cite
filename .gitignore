@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 # other files to ignore
 .DS_Store
+/Assets/Log
+/Assets/SaveData
