@@ -3,10 +3,10 @@
     "enableRecording": true,
     "allowParticipantStart": true,
     "recordPerUnit": true,
-    "muteAgentDrumSounds": false,
+    "muteAgentDrumSounds": true,
     "muteParticipcantDrumSounds": false,
     "muteMusicSounds": false,
-    "hideDrums": false,
+    "hideDrums": true,
     "enableLogging": false,
     "hideCueAfterTime": 20.0,
     "musicVolume": 1.0

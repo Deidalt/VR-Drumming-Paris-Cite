@@ -32,6 +32,7 @@ namespace _Project.Scripts.Data
 
         public TrialPhase[] GetTrailPhases()
         {
+            Debug.Log("aaa");
             if (RandomiseOrderOfPhases)
             {
                 TrialPhase[] returnedArray = new TrialPhase[trailPhases.Length];

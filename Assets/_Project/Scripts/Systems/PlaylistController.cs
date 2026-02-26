@@ -122,7 +122,6 @@ public class PlaylistController : MonoBehaviour
     private IEnumerator IterateTrial()
     {
         TrialPhase[] trailPhases = currentTrial.GetTrailPhases();
-
         PlaylistItem shownBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, false);
         PlaylistItem hiddenBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, true);
         PlaylistItem inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
@@ -167,7 +166,7 @@ public class PlaylistController : MonoBehaviour
                     );
                 }
 
-                Debug.Log(currentTrack.track.name);
+                Debug.Log("Track playing " + currentTrack.track.name);
 
                 UpdateCurrentPartnerStored(phase.availableAgents[agentQueue.Dequeue()]);
 
