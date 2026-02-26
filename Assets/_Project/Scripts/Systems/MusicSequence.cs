@@ -5,6 +5,7 @@ using System.Linq;
 using _Project.Scripts.Data;
 using UnityEngine;
 using Valve.VR;
+using UnityEngine.Audio;
 
 namespace _Project.Scripts.Systems
 {
@@ -30,6 +31,8 @@ namespace _Project.Scripts.Systems
         private Coroutine coroutine;
 
         private AudioSource source;
+
+        [SerializeField] private AudioMixer _audioLevels;
 
         private bool _participantCanStart = false;
         [SerializeField] private SteamVR_Action_Boolean triggerPlay;
@@ -86,6 +89,10 @@ namespace _Project.Scripts.Systems
             {
                 if (setting.name.Trim().ToUpper() == "BREAK")
                 {
+                    if (!SaveData.Instance.preferenceData.muteAgentDrumSounds)
+                    {
+                        _audioLevels.SetFloat("Partner Drums Volume", 0); // mute drums in break
+                    }
                     BreakTimer.Instance.Hide();
                 }
                 EventManager.InvokeTimerStopEvent();
@@ -158,6 +165,7 @@ namespace _Project.Scripts.Systems
             {
                 if (setting.name.Trim().ToUpper() == "BREAK")
                 {
+                    _audioLevels.SetFloat("Partner Drums Volume", -80); // mute drums in break
                     BreakTimer.Instance.Show();
                 }
                 // Just set the name for the break and do nothing else

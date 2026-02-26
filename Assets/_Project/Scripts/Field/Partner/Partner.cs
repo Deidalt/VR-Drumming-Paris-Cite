@@ -120,7 +120,14 @@ namespace _Project.Scripts.Field.Partner
 
         public void StopDrumming()
         {
-            StartCoroutine(TemporarilyDisableDrumHitbox());
+            if (highTom is not null)
+            {
+                highTom.gameObject.GetComponent<MeshCollider>().enabled = false;
+            }
+            if (middleTom is not null)
+            {
+                middleTom.gameObject.GetComponent<Collider>().enabled = false;
+            }
             avatarAnimator?.SetBool("Drumming", false);
         }
 
