@@ -204,6 +204,8 @@ public class PlaylistController : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             int randomBinaryDigit = UnityEngine.Random.Range(0, 2);
+            if (!currentTrial.RandomiseOrderOfTracks)
+                randomBinaryDigit = 0; // put all tracks in Strong queue when randomise is off
             if (binaryDigitUsageCount[randomBinaryDigit] >= length / 2)
             {
                 binaryQueue.Enqueue(1 - randomBinaryDigit);
@@ -225,6 +227,8 @@ public class PlaylistController : MonoBehaviour
         for (int i = 0; i < availableTrackCount; i++)
         {
             int randomTrackIndex = Random.Range(0, availableTracks.Count);
+            if (!currentTrial.RandomiseOrderOfTracks)
+                randomTrackIndex = 0;
             trackIndexQueue.Enqueue(availableTracks[randomTrackIndex]);
             availableTracks.RemoveAt(randomTrackIndex);
         }

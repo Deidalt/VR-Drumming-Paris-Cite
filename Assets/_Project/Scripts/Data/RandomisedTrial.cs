@@ -12,8 +12,9 @@ namespace _Project.Scripts.Data
     [CreateAssetMenu(fileName = "RandomisedTrial", menuName = "Randomised Trial", order = 2)]
     public class RandomisedTrial : ScriptableObject
     {
-        [SerializeField] private bool RandomiseOrderOfPhases = true;
+        [SerializeField] private bool RandomiseOrderOfPhases = true; 
         public int tracksPerBlock { get; private set; } = 6;
+        public bool RandomiseOrderOfTracks = true;
 
         [field: SerializeField] public PartnerHandPreference handPreference = PartnerHandPreference.Both;
 
@@ -32,7 +33,6 @@ namespace _Project.Scripts.Data
 
         public TrialPhase[] GetTrailPhases()
         {
-            Debug.Log("aaa");
             if (RandomiseOrderOfPhases)
             {
                 TrialPhase[] returnedArray = new TrialPhase[trailPhases.Length];
