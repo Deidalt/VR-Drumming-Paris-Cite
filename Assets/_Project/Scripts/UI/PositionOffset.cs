@@ -14,6 +14,7 @@ namespace _Project.Scripts.UI
 
         [SerializeField] private GameObject objectContainer;  // parent object to the spawned objects
         [SerializeField] private Vector3 initialPosition;
+        [SerializeField] private Vector3 initialFrontBackPosition;
 
         [SerializeField] private Slider leftRightSlider;
         [SerializeField] private Slider frontBackSlider;
@@ -21,6 +22,8 @@ namespace _Project.Scripts.UI
         [SerializeField] private TextMeshProUGUI leftRightSliderLabel;
         [SerializeField] private TextMeshProUGUI frontBackSliderLabel;
         [SerializeField] private TextMeshProUGUI upDownSliderLabel;
+
+        private float offsetInit = 0;
 
         public enum Axis
         {
@@ -34,7 +37,11 @@ namespace _Project.Scripts.UI
         /// </summary>
         private void Awake()
         {
+            
             initialPosition = objectContainer.transform.localPosition;
+            offsetInit = initialFrontBackPosition.z;
+            frontBackSlider.value = initialFrontBackPosition.z;
+            OnOffset(offsetInit, Axis.FrontBack);
         }
 
         /// <summary>
@@ -82,7 +89,6 @@ namespace _Project.Scripts.UI
                     sliderText = upDownSliderLabel;
                     break;
             }
-
             // set slider text
             if (offset > 0)
             {
@@ -91,6 +97,7 @@ namespace _Project.Scripts.UI
             else if (offset < 0)
             {
                 sliderText.SetText(negativeTextValue + Mathf.Abs(offset).ToString("F2"));
+
             }
             else
             {
@@ -106,13 +113,12 @@ namespace _Project.Scripts.UI
                     newPosition.x = initialPosition.x + offset;
                     break;
                 case Axis.FrontBack:
-                    newPosition.z = initialPosition.z + offset;
+                    newPosition.z = initialFrontBackPosition.z + offset;
                     break;
                 default:
                     newPosition.y = initialPosition.y + offset;
                     break;
             }
-
             // update position in game
             objectContainer.transform.localPosition = newPosition;
         }
