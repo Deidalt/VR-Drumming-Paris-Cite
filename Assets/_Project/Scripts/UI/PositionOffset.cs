@@ -37,8 +37,19 @@ namespace _Project.Scripts.UI
         /// </summary>
         private void Awake()
         {
-            
             initialPosition = objectContainer.transform.localPosition;
+            if (gameObject.name == "@Drum Manager")
+            {
+                //call the init from the Drum Manager node to the SettingsModal_Panel node
+                PositionOffset po = GameObject.Find("Modern_Canvas/ModalContainer_Panel/SettingsModal_Panel").GetComponent<PositionOffset>();
+                po.Initialize();
+                GetComponent<PositionOffset>().Initialize();
+            }
+        }
+
+        public void Initialize()
+        {
+            //init Player pos set from Settings default values
             offsetInit = initialFrontBackPosition.z;
             frontBackSlider.value = initialFrontBackPosition.z;
             OnOffset(offsetInit, Axis.FrontBack);
