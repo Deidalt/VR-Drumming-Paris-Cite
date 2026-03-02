@@ -50,6 +50,7 @@ namespace _Project.Scripts.UI
         public void Initialize()
         {
             //init Player pos set from Settings default values
+            //initialFrontBackPosition.z = 0;
             offsetInit = initialFrontBackPosition.z;
             frontBackSlider.value = initialFrontBackPosition.z;
             OnOffset(offsetInit, Axis.FrontBack);
@@ -124,7 +125,14 @@ namespace _Project.Scripts.UI
                     newPosition.x = initialPosition.x + offset;
                     break;
                 case Axis.FrontBack:
-                    newPosition.z = initialFrontBackPosition.z + offset;
+                    if (initialFrontBackPosition.z != 0)
+                    {
+                        newPosition.z = offset;
+                    }
+                    else
+                    {
+                        newPosition.z = initialPosition.z + offset;
+                    }
                     break;
                 default:
                     newPosition.y = initialPosition.y + offset;
