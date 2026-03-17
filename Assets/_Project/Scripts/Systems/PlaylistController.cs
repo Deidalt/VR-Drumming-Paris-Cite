@@ -82,11 +82,24 @@ public class PlaylistController : MonoBehaviour
             else if (!item.hidePartner && ShownPartner != _currentPartner)
             {
                 EventManager.InvokeAgentSelected(_currentPartner);
-                DrumLogger.Instance.ChangedAvatar(_currentPartner.name, shouldLog: false);
+                if (GameData.Instance.currentPlayType == PlayType.RandomisedTrial)
+                {
+                    DrumLogger.Instance.ChangedAvatar(_currentPartner.name, currentTrial.handPreference, shouldLog: false);
+                }
+                else
+                {
+                    DrumLogger.Instance.ChangedAvatar(_currentPartner.name, shouldLog: false);
+                }
             }
             if (item.track.name.Trim().ToLower() == "recall")
             {
-                break;
+                recalling = true;
+                recallButtons.gameObject.SetActive(true);
+                while (recalling)
+                {
+                    yield return null;
+                }
+                EventManager.InvokeTimerStopEvent();
             }
             if (item.track.name.Trim().ToLower() == "break")
             {
@@ -106,12 +119,6 @@ public class PlaylistController : MonoBehaviour
         }
         else
         {
-            recalling = true;
-            recallButtons.gameObject.SetActive(true);
-            while (recalling)
-            {
-                yield return null;
-            }
             if (subCoroutine is not null)
             {
                 StopCoroutine(subCoroutine);

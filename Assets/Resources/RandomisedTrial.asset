@@ -51,12 +51,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aebff991468cf9843898efca9d204746, type: 2}
   - {fileID: 11400000, guid: 406c7ea91a28a8e409d2f0a85ab846c4, type: 2}
   - {fileID: 11400000, guid: 2fd51e0af95719d43b5ec7c1146c0737, type: 2}
-  <trackTimeSecs>k__BackingField: 5
+  <trackTimeSecs>k__BackingField: 32
   <breakObject>k__BackingField: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a,
     type: 2}
   <breakTimeSecs>k__BackingField: 5
   <interferenceObject>k__BackingField: {fileID: 11400000, guid: 3e5f74f4f280bea4db872b3eaa68f4d1,
     type: 2}
-  <interferenceTimeSecs>k__BackingField: 5
+  <interferenceTimeSecs>k__BackingField: 30
   <recallObject>k__BackingField: {fileID: 11400000, guid: 111c47005a4d94cbdadd90de9f7ed3f0,
     type: 2}

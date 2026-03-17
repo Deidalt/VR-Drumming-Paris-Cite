@@ -3,6 +3,7 @@ using System.Linq;
 using _Project.Scripts.Data;
 using _Project.Scripts.Systems;
 using DrumRhythmGame.Data;
+using RootMotion.FinalIK;
 using UnityEditor;
 using UnityEngine;
 
@@ -163,6 +164,11 @@ namespace _Project.Scripts.Field
         public void DestroyPartnerOne()
         {
             if (_currentPartnerOne == null) return;
+            _currentPartnerOne.GetComponentInChildren<Partner.Partner>().RevertToWaitState();
+            _currentPartnerOne.GetComponentInChildren<FullBodyBipedIK>().solver.rightHandEffector.positionWeight = 0;
+            _currentPartnerOne.GetComponentInChildren<FullBodyBipedIK>().solver.leftHandEffector.positionWeight = 0;
+            _currentPartnerOne.GetComponentInChildren<FullBodyBipedIK>().solver.rightHandEffector.rotationWeight = 0;
+            _currentPartnerOne.GetComponentInChildren<FullBodyBipedIK>().solver.leftHandEffector.rotationWeight = 0;
             _currentPartnerOne.SetActive(false);
             // Destroy(_currentPartnerOne);
             _currentPartnerOne = null;

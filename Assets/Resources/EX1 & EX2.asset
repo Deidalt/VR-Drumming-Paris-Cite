@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc091cf21a844bc5b8d2700128c7b69, type: 3}
+  m_Name: EX1 & EX2
+  m_EditorClassIdentifier: 
+  playlistItems:
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 45e773202a325a44f96b1b6ec8956759, type: 2}
+    duration: 32
+    hidePartner: 0
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 3e5f74f4f280bea4db872b3eaa68f4d1, type: 2}
+    duration: 30
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 111c47005a4d94cbdadd90de9f7ed3f0, type: 2}
+    duration: 0
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 1495a2f69423c4f4cb09b3701b084124, type: 2}
+    duration: 32
+    hidePartner: 0
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 3e5f74f4f280bea4db872b3eaa68f4d1, type: 2}
+    duration: 30
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a, type: 2}
+    duration: 5
+    hidePartner: 1
+  - track: {fileID: 11400000, guid: 111c47005a4d94cbdadd90de9f7ed3f0, type: 2}
+    duration: 0
+    hidePartner: 1

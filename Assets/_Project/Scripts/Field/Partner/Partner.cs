@@ -153,6 +153,12 @@ namespace _Project.Scripts.Field.Partner
 
         }
 
+        public void RevertToWaitState()
+        {
+            leftHitStateMachine.TransitionToState(AvatarHitStateMachine.E_AvatarDrumHitState.Waiting);
+            rightHitStateMachine.TransitionToState(AvatarHitStateMachine.E_AvatarDrumHitState.Waiting);
+        }
+
         public void DrumHit(FullBodyBipedEffector hittingHand, InstrumentType instrument)
         {
             if (hittingHand == FullBodyBipedEffector.RightHand)

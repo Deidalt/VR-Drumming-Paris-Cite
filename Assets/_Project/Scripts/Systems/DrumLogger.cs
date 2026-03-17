@@ -15,6 +15,7 @@ public class DrumLogger : MonoBehaviour
     private int _trailCounter = 1;
     private string _currentTrail = "FreePlay";
     private string _currentAvatar = "No Avatar";
+    private PartnerHandPreference _handPreference = PartnerHandPreference.Both;
     private Queue<string> _participantHits;
     private Queue<string> _avatarHits;
     private Queue<string> _beatTimes;
@@ -79,6 +80,13 @@ public class DrumLogger : MonoBehaviour
             LogCurrentTrial();
         _currentAvatar = avatar;
     }
+    public void ChangedAvatar(string avatar, PartnerHandPreference handPreference, bool shouldLog = true)
+    {
+        if (shouldLog)
+            LogCurrentTrial();
+        _currentAvatar = avatar;
+        _handPreference = handPreference;
+    }
 
     public void SetCurrentTrail(string trailName)
     {
@@ -88,14 +96,10 @@ public class DrumLogger : MonoBehaviour
 
     private void LogCurrentTrial()
     {
-        string trailInfo = $@"{_currentTrail} with {_currentAvatar} started at {DateTime.Now:HH\:mm\:ss} ({_currentFileStartTime - _ogStartTime:mm\:ss} from start)";
-        string saveDirectory = MakeCurrentSaveDirectory();
-        LogDataToFile(_participantHits, _drumHitHeaders, saveDirectory, "ParticipantHits", trailInfo);
-
-        if (_currentTrail != "FreePlay" && _currentTrail != "SPR")
+        string trailInfo = $@"{_currentTrail} with {_currentAvatar} ({_handPreference} handed variant) started at {DateTime.Now:HH\:mm\:ss} ({_currentFileStartTime - _ogStartTime:mm\:ss} from start)";
+        if (_currentTrail != "FreePlay" && _currentTrail != "SPR" && _currentTrail != "Break")
         {
-            LogDataToFile(_avatarHits, _drumHitHeaders, saveDirectory, "AvatarHits", trailInfo);
-            LogDataToFile(_beatTimes, _beatTimeHeaders, saveDirectory, "BeatTimes", trailInfo);
+            LogDataToFile(_participantHits, _drumHitHeaders, _hitLogDirectory, "Sequence Log", trailInfo);
         }
         _currentFileStartTime = DateTime.Now;
         _participantHits.Clear();
@@ -106,31 +110,10 @@ public class DrumLogger : MonoBehaviour
     private void LogDataToFile(Queue<string> data, string fileHeader, string directory, string fileName, string trailInfo)
     {
         string savePath = directory + $"/{fileName}.csv";
-        /* Here when a participant is repeating a scene at a later time
-        * within the same experiment so a number should be added to the
-        * end of the save file to avoid overwriting previous data */
-        int saveNumber = 0;
-        while (File.Exists(savePath))
-        {
-            /* loop until high enough save number is reached as
-            * to not overwrite previous data */
-            saveNumber += 1;
-            savePath = directory + $"/{fileName}({saveNumber}).csv";
-        }
-
-        using (var writer = new StreamWriter(savePath, false))
+        using (var writer = new StreamWriter(savePath, true))
         {
             // first, add headers to each column
             writer.WriteLine(trailInfo);
-            writer.WriteLine(fileHeader);
-
-            // loop each row and write to file
-            int line = 0;
-            while (data.Count > 0)
-            {
-                writer.WriteLine($"{++line},{data.Dequeue()}");
-                writer.Flush();
-            }
         }
     }
 
