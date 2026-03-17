@@ -72,6 +72,7 @@ public class PlaylistController : MonoBehaviour
     {
         foreach (PlaylistItem item in currentPlaylist.playlistItems)
         {
+            Debug.Log("bbplaylist " + item);
             EventManager.InvokeMusicSettingChangeEvent(item.track);
             MusicSequence.Instance.Play();
             if (item.hidePartner && ShownPartner is not null)
