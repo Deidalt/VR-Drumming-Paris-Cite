@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1c165a27e3c4082b6c6beec2fd308d, type: 3}
+  m_Name: Trial_Random_Interference_Left
+  m_EditorClassIdentifier: 
+  RandomiseOrderOfPhases: 1
+  RandomiseOrderOfTracks: 1
+  handPreference: 1
+  trailPhases:
+  - <availableAgents>k__BackingField:
+    - {fileID: 11400000, guid: b03a45f82de54e14f919f7e5494bd3d4, type: 2}
+    - {fileID: 11400000, guid: 32595a25b3dc4a84d96cc5d840125769, type: 2}
+  - <availableAgents>k__BackingField:
+    - {fileID: 11400000, guid: 1215aa403cc494503b521f78c5f54417, type: 2}
+    - {fileID: 11400000, guid: bb5ac933acb624280b8e2827ee94e9a9, type: 2}
+  - <availableAgents>k__BackingField:
+    - {fileID: 11400000, guid: ab140f14b8bb8344f98a096fbd0502b3, type: 2}
+  - <availableAgents>k__BackingField:
+    - {fileID: 11400000, guid: c07e9abf1612f4a6e8be2c120f1dc788, type: 2}
+  <availableStrongSequences>k__BackingField:
+  - {fileID: 11400000, guid: 9937a7ad116700c439dc9a0e3bccb6ee, type: 2}
+  - {fileID: 11400000, guid: b2fc2fa5a8813a44f8ed43edb03a8831, type: 2}
+  - {fileID: 11400000, guid: cc5319a1bd83a0347872bbdd1ebda320, type: 2}
+  - {fileID: 11400000, guid: 9fe508d53aff6cc44a1729e0b8c4428a, type: 2}
+  - {fileID: 11400000, guid: bcf7d158ee034d2418b308874fdc2b02, type: 2}
+  - {fileID: 11400000, guid: a93780e7c9016684599513af595e335b, type: 2}
+  - {fileID: 11400000, guid: eecc9ffb3c76278448f8cced1ff1c27b, type: 2}
+  - {fileID: 11400000, guid: 666aef919c76d4d47bb871764f7a37a5, type: 2}
+  - {fileID: 11400000, guid: 5f248e72c4db9a54bad0e84a711a60cb, type: 2}
+  - {fileID: 11400000, guid: 1d22f58ad5625304c958367b4b3dada1, type: 2}
+  - {fileID: 11400000, guid: 9be257c5441be3547b11666a9e280f83, type: 2}
+  - {fileID: 11400000, guid: 7fd6f0a94b632b646b1017060f788a68, type: 2}
+  <availableWeakSequences>k__BackingField:
+  - {fileID: 11400000, guid: 3bac920d253045043850fd7d61597edc, type: 2}
+  - {fileID: 11400000, guid: 664a25c0b4ab6534cb08f5f66eef9f24, type: 2}
+  - {fileID: 11400000, guid: fbb32155f3714e044bb6ef0edf40c77d, type: 2}
+  - {fileID: 11400000, guid: 332bb3e2c5e8a7645a9db7c9f16186c3, type: 2}
+  - {fileID: 11400000, guid: 17245219be3406a45a06ffa9835b7019, type: 2}
+  - {fileID: 11400000, guid: e02c0d8fe636b8e4f8c914526f7c6edc, type: 2}
+  - {fileID: 11400000, guid: 627a3d13bca8972449ed33413bd8cbb8, type: 2}
+  - {fileID: 11400000, guid: 41bee70a78d983b40b9f24188c458478, type: 2}
+  - {fileID: 11400000, guid: cceaab90c55b8b247b46fc99d91de7fd, type: 2}
+  - {fileID: 11400000, guid: aebff991468cf9843898efca9d204746, type: 2}
+  - {fileID: 11400000, guid: 406c7ea91a28a8e409d2f0a85ab846c4, type: 2}
+  - {fileID: 11400000, guid: 2fd51e0af95719d43b5ec7c1146c0737, type: 2}
+  <trackTimeSecs>k__BackingField: 32
+  <breakObject>k__BackingField: {fileID: 11400000, guid: 3cfab132111064d8498c5de7e0f7092a,
+    type: 2}
+  <breakTimeSecs>k__BackingField: 5
+  <interferenceObject>k__BackingField: {fileID: 11400000, guid: 3e5f74f4f280bea4db872b3eaa68f4d1,
+    type: 2}
+  <interferenceTimeSecs>k__BackingField: 30
+  <isRandomMutedInterference>k__BackingField: 1
+  <breakTimeRange>k__BackingField:
+    min: 15
+    max: 30
+  <recallObject>k__BackingField: {fileID: 11400000, guid: 111c47005a4d94cbdadd90de9f7ed3f0,
+    type: 2}

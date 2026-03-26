@@ -72,7 +72,6 @@ public class PlaylistController : MonoBehaviour
     {
         foreach (PlaylistItem item in currentPlaylist.playlistItems)
         {
-            Debug.Log("bbplaylist " + item);
             EventManager.InvokeMusicSettingChangeEvent(item.track);
             MusicSequence.Instance.Play();
             if (item.hidePartner && ShownPartner is not null)
@@ -132,7 +131,18 @@ public class PlaylistController : MonoBehaviour
         TrialPhase[] trailPhases = currentTrial.GetTrailPhases();
         PlaylistItem shownBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, false);
         PlaylistItem hiddenBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, true);
-        PlaylistItem inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
+        PlaylistItem inteferenceItem;
+        if (currentTrial.isRandomMutedInterference)
+        {
+            var minRange = currentTrial.breakTimeRange.min;
+            var maxRange = currentTrial.breakTimeRange.max;
+            var randValue = Random.Range(minRange, maxRange + 1);
+            inteferenceItem = new PlaylistItem(currentTrial.breakObject, randValue, true);
+        }
+        else
+        {
+            inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
+        }
         PlaylistItem recallItem = new PlaylistItem(currentTrial.recallObject, 0, true);
 
         Queue<int> strongTrackQueue = RandomTrackOrder(currentTrial.availableStrongSequences.Length);
@@ -178,16 +188,30 @@ public class PlaylistController : MonoBehaviour
 
                 UpdateCurrentPartnerStored(phase.availableAgents[agentQueue.Dequeue()]);
 
-                currentPlaylist = Playlist.CreatePlaylist(
-                    new PlaylistItem[] {
+                if (currentTrial.isRandomMutedInterference)
+                {
+                    currentPlaylist = Playlist.CreatePlaylist(
+                        new PlaylistItem[] {
+                    shownBreakItem,
+                    currentTrack,
+                    inteferenceItem,
+                    recallItem
+                        }
+                    );
+                }
+                else
+                {
+                    currentPlaylist = Playlist.CreatePlaylist(
+                        new PlaylistItem[] {
                     shownBreakItem,
                     currentTrack,
                     hiddenBreakItem,
                     inteferenceItem,
                     hiddenBreakItem,
                     recallItem
-                    }
-                );
+                        }
+                    );
+                }
 
                 yield return subCoroutine = StartCoroutine(IteratePlaylist());
             }

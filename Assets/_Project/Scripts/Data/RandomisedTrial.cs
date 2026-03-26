@@ -29,6 +29,8 @@ namespace _Project.Scripts.Data
         [field: SerializeField] public int breakTimeSecs { get; private set; }
         [field: SerializeField] public MusicSetting interferenceObject { get; private set; }
         [field: SerializeField] public int interferenceTimeSecs { get; private set; }
+        [field: SerializeField] public bool isRandomMutedInterference { get; private set; }
+        [field: SerializeField] public MinMaxInt breakTimeRange { get; private set; }
         [field: SerializeField] public MusicSetting recallObject { get; private set; }
 
         public TrialPhase[] GetTrailPhases()
@@ -57,5 +59,13 @@ namespace _Project.Scripts.Data
     public struct TrialPhase
     {
         [field: SerializeField] public AgentSO[] availableAgents { get; private set; }
+    }
+
+
+    [Serializable]
+    public struct MinMaxInt
+    {
+        public int min;
+        public int max;
     }
 }
