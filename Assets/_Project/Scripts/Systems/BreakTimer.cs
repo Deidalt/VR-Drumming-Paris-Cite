@@ -26,7 +26,11 @@ namespace _Project.Scripts.Systems
         public void Hide()
         {
             text.enabled = false;
-            StopCoroutine(coroutine);
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                coroutine = null;
+            }
         }
 
         private IEnumerator UpdateTimer()

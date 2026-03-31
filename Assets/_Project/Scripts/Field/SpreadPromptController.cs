@@ -73,7 +73,7 @@ namespace _Project.Scripts.Field
         /// <param name="setting">New new MusicSetting to use</param>
         private void UpdateScore(MusicSetting setting)
         {
-            if (setting.name.Trim().ToUpper() == "BREAK" || setting.name.Trim().ToUpper() == "RECALL") { return; }
+            if (setting.categoryName == "break" || setting.name.Trim().ToUpper() == "RECALL") { return; }
 
             Debug.Log("UpdateScore - SpreadPromptController\n");
 

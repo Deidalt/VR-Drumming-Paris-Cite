@@ -75,9 +75,10 @@ namespace _Project.Scripts.Systems
         {
             if (_participantCanStart && triggerPlay.GetStateDown(SteamVR_Input_Sources.Any))
             {
+
                 Play();
             }
-            if (setting.name.Trim().ToUpper() != "BREAK")
+            if (setting.categoryName != "break")
             {
                 IsPlaying = source.isPlaying;
             }
@@ -85,9 +86,9 @@ namespace _Project.Scripts.Systems
 
         public void Reset()
         {
-            if (setting.name.Trim().ToUpper() == "BREAK" || setting.name.Trim().ToUpper() == "RECALL")
+            if (setting.categoryName == "break" || setting.name.Trim().ToUpper() == "RECALL")
             {
-                if (setting.name.Trim().ToUpper() == "BREAK")
+                if (setting.categoryName == "break")
                 {
                     if (!SaveData.Instance.preferenceData.muteAgentDrumSounds)
                     {
@@ -155,18 +156,20 @@ namespace _Project.Scripts.Systems
             if (source.isPlaying) return;
 
             IsPlaying = true;
-
             if (setting.name.Trim().ToUpper() == "SPR")
             {
                 StartCoroutine(SPRTrial());
                 return;
             }
-            else if (setting.name.Trim().ToUpper() == "BREAK" || setting.name.Trim().ToUpper() == "RECALL")
+            else if (setting.categoryName == "break" || setting.name.Trim().ToUpper() == "RECALL")
             {
-                if (setting.name.Trim().ToUpper() == "BREAK")
+                if (setting.categoryName == "break")
                 {
                     _audioLevels.SetFloat("Partner Drums Volume", -80); // mute drums in break
-                    BreakTimer.Instance.Show();
+                    if (setting.name == "Break")
+                    {
+                        BreakTimer.Instance.Show();
+                    }
                 }
                 // Just set the name for the break and do nothing else
                 DrumLogger.Instance.SetCurrentTrail(setting.name);
@@ -315,6 +318,10 @@ namespace _Project.Scripts.Systems
         public string GetSequenceName()
         {
             return setting.name;
+        }
+        public string GetCategoryName()
+        {
+            return setting.categoryName;
         }
     }
 }

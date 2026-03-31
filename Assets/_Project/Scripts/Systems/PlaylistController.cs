@@ -19,6 +19,8 @@ public class PlaylistController : MonoBehaviour
     private Coroutine subCoroutine;
     private bool recalling = false;
     private bool waitingToContinue = false;
+    private float memoRandValue = 0, memoRandValue2 = 0;
+    private bool firstBreakDisabled = true;
     void Start()
     {
         Instance = this;
@@ -101,7 +103,7 @@ public class PlaylistController : MonoBehaviour
                 }
                 EventManager.InvokeTimerStopEvent();
             }
-            if (item.track.name.Trim().ToLower() == "break")
+            if (item.track.categoryName == "break")
             {
                 yield return new WaitForSeconds(item.duration - 1);
                 EventManager.InvokeAgentPrepareEvent();
@@ -131,18 +133,10 @@ public class PlaylistController : MonoBehaviour
         TrialPhase[] trailPhases = currentTrial.GetTrailPhases();
         PlaylistItem shownBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, false);
         PlaylistItem hiddenBreakItem = new PlaylistItem(currentTrial.breakObject, currentTrial.breakTimeSecs, true);
-        PlaylistItem inteferenceItem;
-        if (currentTrial.isRandomMutedInterference)
-        {
-            var minRange = currentTrial.breakTimeRange.min;
-            var maxRange = currentTrial.breakTimeRange.max;
-            var randValue = Random.Range(minRange, maxRange + 1);
-            inteferenceItem = new PlaylistItem(currentTrial.breakObject, randValue, true);
-        }
-        else
-        {
-            inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
-        }
+        PlaylistItem inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
+        PlaylistItem inteferenceItem2 = new PlaylistItem(currentTrial.interferenceObject, currentTrial.interferenceTimeSecs, true);
+        
+        
         PlaylistItem recallItem = new PlaylistItem(currentTrial.recallObject, 0, true);
 
         Queue<int> strongTrackQueue = RandomTrackOrder(currentTrial.availableStrongSequences.Length);
@@ -164,6 +158,8 @@ public class PlaylistController : MonoBehaviour
                 agentQueue = RandomisedEvenBinaryQueue(currentTrial.tracksPerBlock);
             }
             Queue<int> strongOrWeakQueue = RandomisedEvenBinaryQueue(currentTrial.tracksPerBlock);
+            firstBreakDisabled = true;
+
             for (int i = 0; i < currentTrial.tracksPerBlock; i++)
             {
                 PlaylistItem currentTrack;
@@ -184,20 +180,49 @@ public class PlaylistController : MonoBehaviour
                     );
                 }
 
+                if (currentTrial.isRandomMutedInterference)
+                {
+                    float randValue = (float)(PonderatedRandom(ref memoRandValue));
+                    Debug.Log("bbx " + randValue);
+                    inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, randValue, true);
+                    float randValue2 = (float)(PonderatedRandom(ref memoRandValue2));
+                    inteferenceItem2 = new PlaylistItem(currentTrial.interferenceObject, randValue2, true);
+                }
+
                 Debug.Log("Track playing " + currentTrack.track.name);
 
                 UpdateCurrentPartnerStored(phase.availableAgents[agentQueue.Dequeue()]);
 
                 if (currentTrial.isRandomMutedInterference)
                 {
-                    currentPlaylist = Playlist.CreatePlaylist(
-                        new PlaylistItem[] {
-                    shownBreakItem,
-                    currentTrack,
-                    inteferenceItem,
-                    recallItem
-                        }
-                    );
+                    if (firstBreakDisabled == true)
+                    {
+                        firstBreakDisabled = false;
+                        currentPlaylist = Playlist.CreatePlaylist(
+                            new PlaylistItem[] {
+                        shownBreakItem,
+                        currentTrack,
+                        inteferenceItem,
+                        hiddenBreakItem,
+                        recallItem,
+
+                            }
+                        );
+                    }
+                    else
+                    {
+                        currentPlaylist = Playlist.CreatePlaylist(
+                            new PlaylistItem[] {
+                        inteferenceItem2,
+                        shownBreakItem,
+                        currentTrack,
+                        inteferenceItem,
+                        hiddenBreakItem,
+                        recallItem,
+
+                            }
+                        );
+                    }
                 }
                 else
                 {
@@ -295,6 +320,25 @@ public class PlaylistController : MonoBehaviour
     public void ContinueToNextTrialPhase()
     {
         waitingToContinue = false;
+    }
+
+    public int PonderatedRandom(ref float randMemo)
+    {
+        float minRange = (float)currentTrial.breakTimeRange.min;
+        float maxRange = (float)currentTrial.breakTimeRange.max;
+        float randValue = Random.Range(minRange, maxRange);
+        Debug.Log("bbpond " + randMemo + " _ "+randValue);
+        if (randMemo == 0)
+        {
+            randMemo = randValue;
+        }
+        else
+        {
+            randValue = maxRange - (randMemo - minRange);
+            randMemo = 0;
+        }
+        randValue -= 5f;
+        return Mathf.RoundToInt(randValue);
     }
 
 }

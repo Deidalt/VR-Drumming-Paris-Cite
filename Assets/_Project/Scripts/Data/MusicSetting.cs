@@ -41,6 +41,7 @@ namespace _Project.Scripts.Data
         public bool loopScore = true;
 
         [Header("Extras")] public int customBpm;
+        public string categoryName = "none";
 
         #endregion
     }

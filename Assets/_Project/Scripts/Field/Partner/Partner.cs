@@ -85,7 +85,7 @@ namespace _Project.Scripts.Field.Partner
                 avatarAnimator.SetLayerWeight(avatarAnimator.GetLayerIndex("Right Only"), 1);
             }
 
-            if (MusicSequence.Instance.IsPlaying && MusicSequence.Instance.GetSequenceName().Trim().ToUpper() != "BREAK")
+            if (MusicSequence.Instance.IsPlaying && MusicSequence.Instance.GetCategoryName() != "break")
             {
                 StartDrumming();
             }
