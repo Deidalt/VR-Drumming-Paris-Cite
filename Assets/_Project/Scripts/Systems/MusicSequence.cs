@@ -169,6 +169,13 @@ namespace _Project.Scripts.Systems
                     if (setting.name == "Break")
                     {
                         BreakTimer.Instance.Show();
+                        Debug.Log("bbon");
+                        LightingManager.Instance.RestoreBlackout();
+                    }
+                    else
+                    {
+                        Debug.Log("bbOFF");
+                        LightingManager.Instance.SetBlackout();
                     }
                 }
                 // Just set the name for the break and do nothing else
