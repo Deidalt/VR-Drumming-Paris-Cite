@@ -1,0 +1,17 @@
+{
+    "name": "DrumRhythmGame.Transfer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f3042a85ad8f7894cb4dac71c4c2f900",
+        "GUID:5f0440119d5a33e43a8a5a394bbbaaca"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

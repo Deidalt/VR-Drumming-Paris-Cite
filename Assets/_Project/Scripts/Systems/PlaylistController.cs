@@ -183,7 +183,6 @@ public class PlaylistController : MonoBehaviour
                 if (currentTrial.isRandomMutedInterference)
                 {
                     float randValue = (float)(PonderatedRandom(ref memoRandValue));
-                    Debug.Log("bbx " + randValue);
                     inteferenceItem = new PlaylistItem(currentTrial.interferenceObject, randValue, true);
                     float randValue2 = (float)(PonderatedRandom(ref memoRandValue2));
                     inteferenceItem2 = new PlaylistItem(currentTrial.interferenceObject, randValue2, true);
@@ -327,7 +326,6 @@ public class PlaylistController : MonoBehaviour
         float minRange = (float)currentTrial.breakTimeRange.min;
         float maxRange = (float)currentTrial.breakTimeRange.max;
         float randValue = Random.Range(minRange, maxRange);
-        Debug.Log("bbpond " + randMemo + " _ "+randValue);
         if (randMemo == 0)
         {
             randMemo = randValue;

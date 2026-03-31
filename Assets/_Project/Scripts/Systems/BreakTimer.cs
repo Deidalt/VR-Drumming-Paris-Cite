@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+
 namespace _Project.Scripts.Systems
 {
     public class BreakTimer : MonoBehaviour
@@ -10,6 +11,8 @@ namespace _Project.Scripts.Systems
         private TextMeshProUGUI text;
         [SerializeField] private TextMeshProUGUI researcherTimer;
         private Coroutine coroutine;
+        public float CurrentTime;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -19,6 +22,7 @@ namespace _Project.Scripts.Systems
 
         public void Show()
         {
+
             text.enabled = true;
             coroutine = StartCoroutine(UpdateTimer());
         }
@@ -37,9 +41,17 @@ namespace _Project.Scripts.Systems
         {
             while (true)
             {
-                text.text = researcherTimer.text.Substring(0, 3);
+                //text.text = researcherTimer.text.Substring(0, 3);
+                
+                float inverted = 5f - CurrentTime;
+                text.text = inverted.ToString("F2");
                 yield return null;
             }
+        }
+
+        public void SetTime(float time)
+        {
+            CurrentTime = time;
         }
 
     }

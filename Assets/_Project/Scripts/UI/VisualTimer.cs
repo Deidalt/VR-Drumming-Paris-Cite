@@ -18,6 +18,8 @@ namespace _Project.Scripts.UI
         private static Coroutine _timerCoroutine;
 
         private static TextMeshProUGUI _timerText;
+        public static float CurrentTime;
+
 
         #region Event Functions
 
@@ -70,6 +72,7 @@ namespace _Project.Scripts.UI
         {
             while (_isRunning)
             {
+                CurrentTime = Time.time - _startTime;
                 _timerText.text = $"{Time.time - _startTime:F2}";
 
                 yield return new WaitForEndOfFrame();
