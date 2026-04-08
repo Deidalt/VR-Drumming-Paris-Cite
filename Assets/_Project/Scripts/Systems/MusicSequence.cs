@@ -37,6 +37,8 @@ namespace _Project.Scripts.Systems
         private bool _participantCanStart = false;
         [SerializeField] private SteamVR_Action_Boolean triggerPlay;
 
+        [SerializeField] private WaitLoopAndHide crossAnim;
+
         public bool IsPlaying { get; private set; }
 
         public MusicSetting Setting
@@ -169,13 +171,13 @@ namespace _Project.Scripts.Systems
                     if (setting.name == "Break")
                     {
                         BreakTimer.Instance.Show();
-                        Debug.Log("bbon");
                         LightingManager.Instance.RestoreBlackout();
+                        crossAnim.WaitEndOfLoop();
                     }
                     else
                     {
-                        Debug.Log("bbOFF");
                         LightingManager.Instance.SetBlackout();
+                        StartCoroutine(crossAnim.ShowAfterDelay());
                     }
                 }
                 // Just set the name for the break and do nothing else
