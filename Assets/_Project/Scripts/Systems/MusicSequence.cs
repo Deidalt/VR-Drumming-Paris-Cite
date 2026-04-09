@@ -170,14 +170,15 @@ namespace _Project.Scripts.Systems
                     _audioLevels.SetFloat("Partner Drums Volume", -80); // mute drums in break
                     if (setting.name == "Break")
                     {
-                        BreakTimer.Instance.Show();
-                        LightingManager.Instance.RestoreBlackout();
+
                         crossAnim.WaitEndOfLoop();
+                        LightingManager.Instance.RestoreBlackout();
+                        BreakTimer.Instance.Show();
                     }
                     else
                     {
                         LightingManager.Instance.SetBlackout();
-                        StartCoroutine(crossAnim.ShowAfterDelay());
+                        crossAnim.Show();
                     }
                 }
                 // Just set the name for the break and do nothing else

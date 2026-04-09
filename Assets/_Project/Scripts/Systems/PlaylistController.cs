@@ -31,6 +31,7 @@ public class PlaylistController : MonoBehaviour
     {
         if (GameData.Instance.currentPlayType is PlayType.Playlist)
         {
+
             coroutine = StartCoroutine(IteratePlaylist());
         }
         else if (GameData.Instance.currentPlayType is PlayType.RandomisedTrial)
@@ -104,7 +105,7 @@ public class PlaylistController : MonoBehaviour
                 EventManager.InvokeTimerStopEvent();
             }
             if (item.track.categoryName == "break")
-            {
+            {                
                 yield return new WaitForSeconds(item.duration - 1);
                 EventManager.InvokeAgentPrepareEvent();
                 yield return new WaitForSeconds(1);

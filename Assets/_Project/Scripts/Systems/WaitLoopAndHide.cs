@@ -31,21 +31,24 @@ namespace _Project.Scripts.Systems
         }
         public IEnumerator HideAtEndOfLoop()
         {
-            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+           /* AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
             // Attendre que normalizedTime atteigne la fin de la loop
             while (stateInfo.normalizedTime % 1 < 0.99f)
             {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
                 yield return null;
-            }
+            }*/
 
-            Hide();
+            yield return null;
+            anim.Play("CrossStopFadeOut");
+
+            
         }
 
         public void Hide()
         {
-            anim.Play("CrossStopExit");
+            //BreakTimer.Instance.Show();
             gameObject.SetActive(false);
         }
 
