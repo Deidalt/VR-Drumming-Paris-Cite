@@ -21,6 +21,7 @@ public class PlaylistController : MonoBehaviour
     private bool waitingToContinue = false;
     private float memoRandValue = 0, memoRandValue2 = 0;
     private bool firstBreakDisabled = true;
+    private int trialCount = 0;
     void Start()
     {
         Instance = this;
@@ -29,9 +30,10 @@ public class PlaylistController : MonoBehaviour
 
     public void Play()
     {
+        LSLMarkerStream.Send("SessionStart");
+        //Called when pressing play button
         if (GameData.Instance.currentPlayType is PlayType.Playlist)
         {
-
             coroutine = StartCoroutine(IteratePlaylist());
         }
         else if (GameData.Instance.currentPlayType is PlayType.RandomisedTrial)
@@ -73,17 +75,20 @@ public class PlaylistController : MonoBehaviour
 
     private IEnumerator IteratePlaylist()
     {
+
         foreach (PlaylistItem item in currentPlaylist.playlistItems)
         {
             EventManager.InvokeMusicSettingChangeEvent(item.track);
             MusicSequence.Instance.Play();
             if (item.hidePartner && ShownPartner is not null)
             {
+                //break rand (white cross) or interference calling it
                 EventManager.InvokeRemoveAgent();
                 DrumLogger.Instance.ChangedAvatar("No Avatar", shouldLog: false);
             }
             else if (!item.hidePartner && ShownPartner != _currentPartner)
             {
+                //break calling it
                 EventManager.InvokeAgentSelected(_currentPartner);
                 if (GameData.Instance.currentPlayType == PlayType.RandomisedTrial)
                 {
@@ -104,15 +109,23 @@ public class PlaylistController : MonoBehaviour
                 }
                 EventManager.InvokeTimerStopEvent();
             }
-            if (item.track.categoryName == "break")
-            {                
+            else if (item.track.categoryName == "break")
+            {
+                if (item.track.name == "Break_rand")
+                {
+                    var break_ms = (item.duration + 5) * 1000;
+                    LSLMarkerStream.Send($"FixationStart;duration_ms={break_ms}");
+                }
                 yield return new WaitForSeconds(item.duration - 1);
                 EventManager.InvokeAgentPrepareEvent();
                 yield return new WaitForSeconds(1);
             }
             else
             {
+                LSLMarkerStream.Send("SyncPhaseStart");
                 yield return new WaitForSeconds(item.duration);
+
+                LSLMarkerStream.Send("SyncPhaseEnd");
             }
             MusicSequence.Instance.Reset();
         }
@@ -237,7 +250,9 @@ public class PlaylistController : MonoBehaviour
                         }
                     );
                 }
-
+                trialCount++;
+                Debug.Log("bbSTART");
+                LSLMarkerStream.Send($"TrialStart;trial={trialCount};condition={_currentPartner.name};rhythm={currentTrack.track.name}");
                 yield return subCoroutine = StartCoroutine(IteratePlaylist());
             }
             waitingToContinue = true;
@@ -315,6 +330,12 @@ public class PlaylistController : MonoBehaviour
     public void EndRecall()
     {
         recalling = false;
+        LSLMarkerStream.Send($"TrialEnd; trial={trialCount}");
+        Debug.Log("bbcount " + trialCount);
+        if (trialCount >= 24)
+        {
+            LSLMarkerStream.Send("SessionEnd");
+        }
     }
 
     public void ContinueToNextTrialPhase()

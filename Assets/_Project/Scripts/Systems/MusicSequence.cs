@@ -60,7 +60,6 @@ namespace _Project.Scripts.Systems
         protected override void Awake()
         {
             base.Awake();
-
             source = GetComponent<AudioSource>();
             source.playOnAwake = false;
             bpm = setting.customBpm > 0 ? setting.customBpm : UniBpmAnalyzer.AnalyzeBpm(setting.bgm);
