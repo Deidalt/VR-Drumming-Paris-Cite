@@ -18,10 +18,8 @@ MonoBehaviour:
   trailPhases:
   - <availableAgents>k__BackingField:
     - {fileID: 11400000, guid: b03a45f82de54e14f919f7e5494bd3d4, type: 2}
-    - {fileID: 11400000, guid: 32595a25b3dc4a84d96cc5d840125769, type: 2}
   - <availableAgents>k__BackingField:
     - {fileID: 11400000, guid: 1215aa403cc494503b521f78c5f54417, type: 2}
-    - {fileID: 11400000, guid: bb5ac933acb624280b8e2827ee94e9a9, type: 2}
   - <availableAgents>k__BackingField:
     - {fileID: 11400000, guid: ab140f14b8bb8344f98a096fbd0502b3, type: 2}
   - <availableAgents>k__BackingField:

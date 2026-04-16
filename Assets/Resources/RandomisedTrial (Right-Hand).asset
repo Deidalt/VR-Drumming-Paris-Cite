@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RandomisedTrial (Right-Hand)
   m_EditorClassIdentifier: 
   RandomiseOrderOfPhases: 1
+  RandomiseOrderOfTracks: 1
   handPreference: 2
   trailPhases:
   - <availableAgents>k__BackingField:
@@ -58,5 +59,9 @@ MonoBehaviour:
   <interferenceObject>k__BackingField: {fileID: 11400000, guid: 3e5f74f4f280bea4db872b3eaa68f4d1,
     type: 2}
   <interferenceTimeSecs>k__BackingField: 30
+  <isRandomMutedInterference>k__BackingField: 0
+  <breakTimeRange>k__BackingField:
+    min: 0
+    max: 0
   <recallObject>k__BackingField: {fileID: 11400000, guid: 111c47005a4d94cbdadd90de9f7ed3f0,
     type: 2}
