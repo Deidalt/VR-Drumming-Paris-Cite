@@ -102,6 +102,8 @@ public class PlaylistController : MonoBehaviour
             if (item.track.name.Trim().ToLower() == "recall")
             {
                 recalling = true;
+
+                LSLMarkerStream.Send("ReproductionPhaseStart");
                 recallButtons.gameObject.SetActive(true);
                 while (recalling)
                 {
@@ -251,7 +253,6 @@ public class PlaylistController : MonoBehaviour
                     );
                 }
                 trialCount++;
-                Debug.Log("bbSTART");
                 LSLMarkerStream.Send($"TrialStart;trial={trialCount};condition={_currentPartner.name};rhythm={currentTrack.track.name}");
                 yield return subCoroutine = StartCoroutine(IteratePlaylist());
             }
@@ -330,8 +331,8 @@ public class PlaylistController : MonoBehaviour
     public void EndRecall()
     {
         recalling = false;
+        LSLMarkerStream.Send("ReproductionPhaseEnd");
         LSLMarkerStream.Send($"TrialEnd; trial={trialCount}");
-        Debug.Log("bbcount " + trialCount);
         if (trialCount >= 24)
         {
             LSLMarkerStream.Send("SessionEnd");

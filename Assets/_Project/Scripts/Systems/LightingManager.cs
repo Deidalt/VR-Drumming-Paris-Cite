@@ -143,7 +143,6 @@ namespace _Project.Scripts.Systems
             if (!isBlackoutActive)
                 return;
             isBlackoutActive = false;
-            Debug.Log("bbfixationEnd");
             LSLMarkerStream.Send("FixationEnd");
             StartCoroutine(FadeFromBlackout(0.5f));
             /*foreach (var light in directionalLights)
